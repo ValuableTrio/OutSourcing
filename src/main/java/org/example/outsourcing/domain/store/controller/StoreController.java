@@ -30,6 +30,20 @@ public class StoreController {
                         .message("가게 생성이 완료되었습니다.").build());
     }
 
+    @PutMapping("/{store-id}")
+    public ResponseEntity<ResponseMessage> updateStore(
+            //TODO : 유정 정보 넣기
+            @PathVariable Long storeId,
+            @RequestBody StoreInfoForm storeInfoForm
+    ){
+        String email = "test@naver.com";
+        service.updateStore(email, storeId, storeInfoForm);
 
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ResponseMessage.builder()
+                        .httpValue(HttpStatus.OK.value())
+                        .message("가게 정보가 바뀌었습니다.").build()
+                );
+    }
 
 }

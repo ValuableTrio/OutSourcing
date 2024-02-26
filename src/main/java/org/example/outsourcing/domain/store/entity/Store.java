@@ -45,4 +45,16 @@ public class Store {
         this.minPrice = minPrice;
         this.status = false;
     }
+
+    public boolean isNotOwnerMatch(Owner owner) {
+        return !this.owner.equals(owner);
+    }
+
+    public void update(String name, String address, String phoneNumber, String description, Long minPrice) {
+        this.name = name;
+        this.address = address;
+        this.phone = phoneNumber;
+        this.description = description;
+        this.minPrice = minPrice;
+    }
 }
