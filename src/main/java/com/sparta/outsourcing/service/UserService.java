@@ -33,7 +33,7 @@ public class UserService {
         return UserInfoDto.of(userRepository.save(user));
     }
 
-    public UserInfoDto login(LoginRequestDto dto) {
+    public UserInfoDto login(LoginUserRequestDto dto) {
         User findUser = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
@@ -45,7 +45,7 @@ public class UserService {
         return UserInfoDto.of(findUser);
     }
 
-    public UserInfoDto update(Long memberId, UpdateRequestDto dto) {
+    public UserInfoDto update(Long memberId, UpdateUserRequestDto dto) {
         User findUser = userRepository.findById(memberId)
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
@@ -59,7 +59,7 @@ public class UserService {
         return UserInfoDto.of(findUser);
     }
 
-    public void delete(Long memberId, DeleteRequestDto dto) {
+    public void delete(Long memberId, DeleteUserRequestDto dto) {
         User findUser = userRepository.findById(memberId)
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
