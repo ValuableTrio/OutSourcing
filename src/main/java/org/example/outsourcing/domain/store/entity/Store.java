@@ -8,6 +8,7 @@ import org.example.outsourcing.domain.owner.entity.Owner;
 @Entity
 @NoArgsConstructor
 public class Store {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,6 +34,4 @@ public class Store {
 
     @Column(nullable = false)
     private boolean status;
-
-
 }
