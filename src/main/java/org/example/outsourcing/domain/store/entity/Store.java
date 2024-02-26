@@ -34,4 +34,15 @@ public class Store {
 
     @Column(nullable = false)
     private boolean status;
+
+
+    public Store(Owner owner, String name, String address, String phone, String description, Long minPrice) {
+        this.owner = owner;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.description = description;
+        this.minPrice = minPrice;
+        this.status = false;
+    }
 }
