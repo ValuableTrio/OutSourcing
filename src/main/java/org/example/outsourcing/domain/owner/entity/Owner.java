@@ -2,7 +2,6 @@ package org.example.outsourcing.domain.owner.entity;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import org.example.outsourcing.domain.user.entity.UserRole;
 
 @Entity
 @NoArgsConstructor
@@ -19,7 +18,4 @@ public class Owner {
 
     @Column(nullable = false, length = 50)
     private String businessNumber;
-
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
 }

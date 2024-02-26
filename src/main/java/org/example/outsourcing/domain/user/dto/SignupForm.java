@@ -5,9 +5,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class LoginForm {
+public class SignupForm {
 
     private String email;
     private String password;
     private String introduce;
+
 }

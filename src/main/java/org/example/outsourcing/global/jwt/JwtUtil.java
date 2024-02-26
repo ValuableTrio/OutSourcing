@@ -1,4 +1,4 @@
-package com.sparta.duopleaseduo.jwt;
+package org.example.outsourcing.global.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

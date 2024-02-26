@@ -1,4 +1,4 @@
-package org.example.outsourcing.domain.cart.entity;
+package org.example.outsourcing.domain.orderItem.entity;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import org.example.outsourcing.domain.order.entity.Order;
 
 @Entity
 @NoArgsConstructor
-public class Cart {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
