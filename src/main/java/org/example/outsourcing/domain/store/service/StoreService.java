@@ -34,8 +34,6 @@ public class StoreService {
         return storeRepository.save(store);
     }
 
-
-
     @Transactional
     public void updateStore(String email, Long storeId, StoreInfoForm dto) {
         Owner owner = findBy(email);
