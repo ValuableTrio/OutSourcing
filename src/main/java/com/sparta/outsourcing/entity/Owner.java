@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Table(name = "owner")
-public class Owner {
+public class Owner extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +25,14 @@ public class Owner {
 
     @Column(name = "business_number")
     private String businessNumber;
+
+    @Column(name = "state")
+    @Enumerated(value = EnumType.STRING)
+    private OwnerAccountState state;
+
+    public Owner(String email, String password) {
+        this.email = email;
+        this.password = password;
+        this.state = OwnerAccountState.INPROGRESS;
+    }
 }
