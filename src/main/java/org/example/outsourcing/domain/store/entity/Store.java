@@ -57,4 +57,5 @@ public class Store {
         this.description = description;
         this.minPrice = minPrice;
     }
+
 }
