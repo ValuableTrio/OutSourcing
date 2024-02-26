@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class OwnerSigninForm {
+public class OwnerSignForm {
 
     @Email(message = "이메일 형식이 맞지 않습니다.")
     @NotBlank(message = "이메일은 필수로 입력해야 합니다.")
@@ -19,5 +19,8 @@ public class OwnerSigninForm {
     @Size(min = 4, max = 10, message = "비밀번호는 최소 4자 이상, 10자 이하여야 합니다.")
     @Pattern(regexp = "^[a-z0-9]*$", message = "비밀번호는 숫자, 알파벳, 특수문자로 입력해야 합니다.")
     private String password;
+
+    @NotBlank(message = "사업자등록번호를 입력해주세요.")
+    private String businessNumber;
 
 }
