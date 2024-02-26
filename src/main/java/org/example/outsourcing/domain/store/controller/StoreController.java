@@ -39,6 +39,7 @@ public class StoreController {
         String email = "test@naver.com";
         service.updateStore(email, storeId, storeInfoForm);
 
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResponseMessage.builder()
                         .httpValue(HttpStatus.OK.value())
