@@ -4,41 +4,58 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+
 @Entity
+@Getter
 @NoArgsConstructor
-@Table(name = "store")
 public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+
+    @Column(nullable = false, length = 40)
     private String name;
 
-    @Column(name = "address")
+    @Column(nullable = false, length = 50)
     private String address;
 
-    @Column(name = "phone")
+    @Column(nullable = false, length = 15)
     private String phone;
 
-    @Column(name = "description")
+    @Column(nullable = false)
     private String description;
 
-    @Column(name = "min_order_price")
-    private Long minOrderPrice;
+    @Column(nullable = false)
+    private Long minPrice;
 
-    @Column(name = "dibs_count")
-    private Long dibsCount;
+    @Column(nullable = false)
+    private boolean status;
 
-    @Column(name = "rating")
-    private int rating;
 
-    @Column(name = "review_count")
-    private String reviewCount;
+    public Store(Owner owner, String name, String address, String phone, String description, Long minPrice) {
+        this.owner = owner;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.description = description;
+        this.minPrice = minPrice;
+        this.status = false;
+    }
 
-    @Column(name = "status")
-    private int status;
+    public boolean isNotOwnerMatch(Owner owner) {
+        return !this.owner.equals(owner);
+    }
+
+    public void update(String name, String address, String phoneNumber, String description, Long minPrice) {
+        this.name = name;
+        this.address = address;
+        this.phone = phoneNumber;
+        this.description = description;
+        this.minPrice = minPrice;
+    }
 }
