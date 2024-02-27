@@ -61,7 +61,11 @@ public class UserService {
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
 
-        if (passwordEncoder.matches(dto.getPassword(), findUser.getPassword())) {
+        if (!passwordEncoder.matches(dto.getOriginPassword(), findUser.getPassword())) {
+            throw new RuntimeException("Invalid access");
+        }
+
+        if (passwordEncoder.matches(dto.getNewPassword(), findUser.getPassword())) {
             throw new RuntimeException("Can't change to current password");
         }
 
@@ -69,7 +73,7 @@ public class UserService {
                 .findByUserIdOrderByCreatedAtDesc(memberId, Pageable.ofSize(3));
 
         Optional<PasswordHistory> findHistory = histories.stream()
-                .filter(history -> passwordEncoder.matches(dto.getPassword(), history.getPassword()))
+                .filter(history -> passwordEncoder.matches(dto.getNewPassword(), history.getPassword()))
                 .findFirst();
 
         if (findHistory.isPresent()) {
@@ -81,7 +85,7 @@ public class UserService {
                 findUser.getPassword()
         ));
 
-        findUser.setPassword(passwordEncoder.encode(dto.getPassword()));
+        findUser.setPassword(passwordEncoder.encode(dto.getNewPassword()));
 
         return UserInfoDto.of(findUser);
     }

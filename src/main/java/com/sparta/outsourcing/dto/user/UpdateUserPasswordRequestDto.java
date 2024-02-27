@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateUserPasswordRequestDto {
     @NotBlank
-    private String password;
+    private String originPassword;
+    @NotBlank
+    private String newPassword;
 }
