@@ -21,7 +21,7 @@ public class OwnerController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginOwnerRequestDto dto,
                                    HttpSession session
-                                   ) {
+    ) {
         return ResponseEntity.ok().body(ownerService.login(dto, session));
     }
 
