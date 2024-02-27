@@ -11,12 +11,19 @@ import lombok.NoArgsConstructor;
 public class Dibs {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Dibs(Store store, User user) {
+        this.store = store;
+        this.user = user;
+    }
 }
