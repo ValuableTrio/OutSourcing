@@ -1,4 +1,131 @@
 package com.sparta.outsourcing.service;
 
+import com.sparta.outsourcing.dto.store.StoreInfoForm;
+import com.sparta.outsourcing.entity.Owner;
+import com.sparta.outsourcing.entity.Store;
+import com.sparta.outsourcing.entity.User;
+import com.sparta.outsourcing.repository.OwnerRepository;
+import com.sparta.outsourcing.repository.StoreRepository;
+import com.sparta.outsourcing.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class StoreService {
+
+    private final UserRepository userRepository;
+    private final OwnerRepository ownerRepository;
+    private final StoreRepository storeRepository;
+    private final Dib
+
+    public String createStore(String email, StoreInfoForm dto) {
+        Owner owner = findBy(email);
+
+        Store store = new Store(
+                owner,
+                dto.getName(),
+                dto.getAddress(),
+                dto.getPhoneNumber(),
+                dto.getDescription(),
+                dto.getMinPrice()
+        );
+
+        storeRepository.save(store);
+
+        return "가게가 생성되었습니다.";
+    }
+
+    public String deleteStore(String email, Long storeId) {
+        Owner owner = findBy(email);
+        Store store = findBy(storeId);
+
+        validateOwner(store, owner);
+
+        storeRepository.delete(store);
+
+        return "가게가 삭제되었습니다.";
+    }
+
+    @Transactional
+    public String updateStore(String email, Long storeId, StoreInfoForm dto) {
+        Owner owner = findBy(email);
+        Store store = findBy(storeId);
+
+        validateOwner(store, owner);
+
+        store.update(
+                dto.getName(),
+                dto.getAddress(),
+                dto.getPhoneNumber(),
+                dto.getDescription(),
+                dto.getMinPrice()
+        );
+
+        return "가게가 수정되었습니다.";
+    }
+
+    public List<StoreInfoForm> getOwnerAllStore(String email) {
+        Owner owner = findBy(email);
+
+        return storeRepository.findAllByOwner(owner)
+                .stream()
+                .map(StoreInfoForm::new)
+                .toList();
+    }
+
+    public StoreInfoForm getOwnerStore(String email, Long storeId) {
+        Owner owner = findBy(email);
+        Store store = findBy(storeId);
+
+        validateOwner(store, owner);
+
+        return new StoreInfoForm(store);
+    }
+
+    public List<StoreInfoForm> getAllStore(){
+        return storeRepository.findAll()
+                .stream()
+                .map(StoreInfoForm::new)
+                .toList();
+    }
+
+    public StoreInfoForm getStore(Long storeId) {
+        Store store = findBy(storeId);
+
+        return new StoreInfoForm(store);
+    }
+
+    private void validateOwner(Store store, Owner owner) {
+        if (store.isNotOwnerMatch(owner)) {
+            throw new IllegalArgumentException("해당 가게 점주가 아닙니다.");
+        }
+    }
+
+    private Owner findBy(String email) {
+        return ownerRepository.findByEmail(email).orElseThrow(
+                () -> new EntityNotFoundException("해당 오너가 존재하지 않습니다.")
+        );
+    }
+
+    private Store findBy(Long storeId) {
+        return storeRepository.findById(storeId).orElseThrow(
+                () -> new EntityNotFoundException("해당 가게가 존재하지 않습니다.")
+        );
+    }
+
+    public String dibs(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("해당 유저가 존재하지 않습니다.")
+        );
+
+
+        return null;
+    }
 }
