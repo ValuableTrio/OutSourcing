@@ -2,7 +2,6 @@ package com.sparta.outsourcing.controller;
 
 import com.sparta.outsourcing.dto.user.*;
 import com.sparta.outsourcing.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +19,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(
-            @RequestBody LoginUserRequestDto dto,
-            HttpServletRequest request
-    ) {
-        return ResponseEntity.ok().body(userService.login(dto, request));
+    public ResponseEntity<?> login(@RequestBody LoginUserRequestDto dto) {
+        return ResponseEntity.ok().body(userService.login(dto));
     }
 
     @PutMapping("/{memberId}")
@@ -39,7 +35,7 @@ public class UserController {
     public ResponseEntity<?> delete(
             @PathVariable("memberId") Long memberId,
             @RequestBody DeleteUserRequestDto dto
-    ) {
+    ){
         userService.delete(memberId, dto);
         return ResponseEntity.ok().build();
     }
