@@ -1,9 +1,11 @@
 package com.sparta.outsourcing.service;
 
 import com.sparta.outsourcing.dto.store.StoreInfoForm;
+import com.sparta.outsourcing.entity.Dibs;
 import com.sparta.outsourcing.entity.Owner;
 import com.sparta.outsourcing.entity.Store;
 import com.sparta.outsourcing.entity.User;
+import com.sparta.outsourcing.repository.DibsRepository;
 import com.sparta.outsourcing.repository.OwnerRepository;
 import com.sparta.outsourcing.repository.StoreRepository;
 import com.sparta.outsourcing.repository.UserRepository;
@@ -23,7 +25,7 @@ public class StoreService {
     private final UserRepository userRepository;
     private final OwnerRepository ownerRepository;
     private final StoreRepository storeRepository;
-    private final Dib
+    private final DibsRepository dibsRepository;
 
     public String createStore(String email, StoreInfoForm dto) {
         Owner owner = findBy(email);
@@ -102,6 +104,25 @@ public class StoreService {
         return new StoreInfoForm(store);
     }
 
+    public String dibs(String email, Long storeId) {
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("해당 유저가 존재하지 않습니다.")
+        );
+
+        Store store = findBy(storeId);
+
+        Dibs dibs = new Dibs(store, user);
+
+        if(dibsRepository.existsByUserAndStore(user, store)){
+            dibsRepository.deleteByUserAndStore(user, store);
+            return "찜이 해제되었습니다";
+        }
+
+        dibsRepository.save(dibs);
+
+        return "찜에 등록되었습니다.";
+    }
+
     private void validateOwner(Store store, Owner owner) {
         if (store.isNotOwnerMatch(owner)) {
             throw new IllegalArgumentException("해당 가게 점주가 아닙니다.");
@@ -120,12 +141,5 @@ public class StoreService {
         );
     }
 
-    public String dibs(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(
-                () -> new IllegalArgumentException("해당 유저가 존재하지 않습니다.")
-        );
 
-
-        return null;
-    }
 }

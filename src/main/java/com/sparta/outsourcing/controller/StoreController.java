@@ -1,7 +1,9 @@
 package com.sparta.outsourcing.controller;
 
+import com.sparta.outsourcing.config.SessionConst;
 import com.sparta.outsourcing.dto.store.StoreInfoForm;
 import com.sparta.outsourcing.service.StoreService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -15,36 +17,36 @@ public class StoreController {
 
     private final StoreService service;
 
-    private String email = "test@naver.com";
-
     @PostMapping
     public ResponseEntity<?> createStore(
-            //TODO : 유정 정보 넣기
+            HttpSession session,
             @RequestBody StoreInfoForm dto
     ) {
+
+        String email = (String) session.getAttribute(SessionConst.SESSION_USER.name());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(service.createStore(email, dto));
     }
 
-    @PutMapping("/{store-id}")
+    @PutMapping("/{storeId}")
     public ResponseEntity<?> updateStore(
-            //TODO : 유정 정보 넣기
+            HttpSession session,
             @PathVariable Long storeId,
             @RequestBody StoreInfoForm storeInfoForm
     ) {
 
-
+        String email = (String) session.getAttribute(SessionConst.SESSION_USER.name());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(service.updateStore(email, storeId, storeInfoForm));
     }
 
-    @DeleteMapping("/{store-id}")
+    @DeleteMapping("/{storeId}")
     public ResponseEntity<?> deleteStore(
-            //TODO : 유정 정보 넣기
+            HttpSession session,
             @PathVariable Long storeId
     ) {
 
-
+        String email = (String) session.getAttribute(SessionConst.SESSION_USER.name());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(service.deleteStore(email, storeId));
     }
@@ -55,7 +57,7 @@ public class StoreController {
                 .body(service.getAllStore());
     }
 
-    @GetMapping("/{store-id")
+    @GetMapping("/{storeId}")
     public ResponseEntity<?> getStore(
             @PathVariable Long storeId
     ) {
@@ -64,9 +66,13 @@ public class StoreController {
     }
 
 
-    @PostMapping("/{store-id}/dibs")
-    public ResponseEntity<?> dibs(){
+    @PostMapping("/{storeId}/dibs")
+    public ResponseEntity<?> dibs(
+            HttpSession session,
+            @PathVariable Long storeId
+    ){
+        String email = (String) session.getAttribute(SessionConst.SESSION_USER.name());
         return ResponseEntity.status(HttpStatus.OK)
-                .body(service.dibs(email));
+                .body(service.dibs(email, storeId));
     }
 }
