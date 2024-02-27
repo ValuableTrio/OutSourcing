@@ -23,6 +23,7 @@ public class User extends AuditingFields {
     private String email;
 
     @Column(name = "password")
+    @Setter
     private String password;
 
     @Column(name = "role")

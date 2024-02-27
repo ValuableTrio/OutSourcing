@@ -2,7 +2,7 @@ package com.sparta.outsourcing.controller;
 
 import com.sparta.outsourcing.dto.user.*;
 import com.sparta.outsourcing.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,9 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(
             @RequestBody LoginUserRequestDto dto,
-            HttpServletRequest request
+            HttpSession session
     ) {
-        return ResponseEntity.ok().body(userService.login(dto, request));
+        return ResponseEntity.ok().body(userService.login(dto, session));
     }
 
     @PutMapping("/{memberId}")
@@ -33,6 +33,14 @@ public class UserController {
             @RequestBody UpdateUserRequestDto dto
     ) {
         return ResponseEntity.ok().body(userService.update(memberId, dto));
+    }
+
+    @PutMapping("/password/{memberId}")
+    public ResponseEntity<?> updatePassword(
+            @PathVariable("memberId") Long memberId,
+            @RequestBody UpdateUserPasswordRequestDto dto
+    ) {
+        return ResponseEntity.ok().body(userService.updatePassword(memberId, dto));
     }
 
     @DeleteMapping("/{memberId}")
