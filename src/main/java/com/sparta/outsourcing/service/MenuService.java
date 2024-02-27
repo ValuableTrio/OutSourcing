@@ -29,6 +29,13 @@ public class MenuService {
         return menuRepository.findAll().stream().map(MenuInfoForm::new).toList();
     }
 
+    //Store 의 menu 조회
+    public MenuInfoForm getMenu(Long menuId) {
+        Menu menu = findByMenuId(menuId);
+
+        return new MenuInfoForm(menu);
+    }
+
     //Menu 등록
     public String createMenu(String email, Long storeId, MenuInfoForm dto) {
         Owner owner = findBy(email);
@@ -112,5 +119,4 @@ public class MenuService {
             throw new IllegalArgumentException("해당 가게 점주가 아닙니다.");
         }
     }
-
 }
