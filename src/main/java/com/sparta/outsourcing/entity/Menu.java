@@ -24,4 +24,20 @@ public class Menu {
 
     @Column(name = "price")
     private Long price;
+
+    @Column(name = "description")
+    private String description;
+
+    public Menu(Store store, String name, Long price, String description) {
+        this.store = store;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
+    public void update(String name, Long price, String description) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
 }
