@@ -3,6 +3,7 @@ package com.sparta.outsourcing.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -21,9 +22,11 @@ public class Owner extends AuditingFields {
     @Column(name = "password")
     private String password;
 
+    @Setter
     @Column(name = "business_number")
     private String businessNumber;
 
+    @Setter
     @Column(name = "state")
     @Enumerated(value = EnumType.STRING)
     private OwnerAccountState state;
