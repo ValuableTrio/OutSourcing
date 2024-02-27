@@ -1,4 +1,12 @@
 package com.sparta.outsourcing.repository;
 
-public interface MenuRepository {
+import com.sparta.outsourcing.entity.Menu;
+import com.sparta.outsourcing.entity.Owner;
+import com.sparta.outsourcing.entity.Store;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface MenuRepository extends JpaRepository<Menu, Long> {
+    List<Menu> findAllByStore(Store store);
 }
