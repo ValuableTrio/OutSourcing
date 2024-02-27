@@ -32,4 +32,24 @@ public class Order {
 
     @Column(name = "requests")
     private String requests;
+
+    public void setTotalPrice(Long totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setRequests(String requests) {
+        this.requests = requests;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
