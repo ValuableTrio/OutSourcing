@@ -55,7 +55,7 @@ public class ReviewService {
         return reviews.stream()
                 .sorted(Comparator.comparing(Review::getUpdatedAt).reversed())
                 .map(ReviewResponseDto::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void likeReview(Long storeId, Long reviewId) {
