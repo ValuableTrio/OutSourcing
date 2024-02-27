@@ -2,6 +2,7 @@ package com.sparta.outsourcing.controller;
 
 import com.sparta.outsourcing.dto.owner.*;
 import com.sparta.outsourcing.service.OwnerService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,10 @@ public class OwnerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginOwnerRequestDto dto) {
-        return ResponseEntity.ok().body(ownerService.login(dto));
+    public ResponseEntity<?> login(@RequestBody LoginOwnerRequestDto dto,
+                                   HttpSession session
+                                   ) {
+        return ResponseEntity.ok().body(ownerService.login(dto, session));
     }
 
     @PutMapping("/{ownerId}")
