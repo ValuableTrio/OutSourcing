@@ -3,8 +3,13 @@ package com.sparta.outsourcing.dto.store;
 import com.sparta.outsourcing.entity.Store;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
 public class StoreInfoForm {
 
     @NotBlank(message = "이름을 입력해주세요.")
@@ -22,7 +27,7 @@ public class StoreInfoForm {
     @NotBlank(message = "최소 주문 금액을 입력해주세요")
     private Long minPrice;
 
-    public StoreInfoForm(   Store store) {
+    public StoreInfoForm(Store store) {
         this.name = store.getName();
         this.address = store.getAddress();
         this.phoneNumber = store.getPhone();
