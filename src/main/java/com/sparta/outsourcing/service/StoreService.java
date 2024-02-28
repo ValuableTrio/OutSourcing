@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class StoreService {
 
     private final UserRepository userRepository;
@@ -55,7 +55,7 @@ public class StoreService {
         return "가게가 삭제되었습니다.";
     }
 
-    @Transactional
+
     public String updateStore(String email, Long storeId, StoreInfoForm dto) {
         Owner owner = findBy(email);
         Store store = findBy(storeId);
@@ -73,6 +73,7 @@ public class StoreService {
         return "가게가 수정되었습니다.";
     }
 
+    @Transactional(readOnly = true)
     public List<StoreInfoForm> getOwnerAllStore(String email) {
         Owner owner = findBy(email);
 
@@ -81,7 +82,7 @@ public class StoreService {
                 .map(StoreInfoForm::new)
                 .toList();
     }
-
+    @Transactional(readOnly = true)
     public StoreInfoForm getOwnerStore(String email, Long storeId) {
         Owner owner = findBy(email);
         Store store = findBy(storeId);
@@ -90,14 +91,14 @@ public class StoreService {
 
         return new StoreInfoForm(store);
     }
-
+    @Transactional(readOnly = true)
     public List<StoreInfoForm> getAllStore(){
         return storeRepository.findAll()
                 .stream()
                 .map(StoreInfoForm::new)
                 .toList();
     }
-
+    @Transactional(readOnly = true)
     public StoreInfoForm getStore(Long storeId) {
         Store store = findBy(storeId);
 
