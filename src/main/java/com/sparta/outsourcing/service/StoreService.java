@@ -82,6 +82,7 @@ public class StoreService {
                 .map(StoreInfoForm::new)
                 .toList();
     }
+
     @Transactional(readOnly = true)
     public StoreInfoForm getOwnerStore(String email, Long storeId) {
         Owner owner = findBy(email);
@@ -91,13 +92,15 @@ public class StoreService {
 
         return new StoreInfoForm(store);
     }
+
     @Transactional(readOnly = true)
-    public List<StoreInfoForm> getAllStore(){
+    public List<StoreInfoForm> getAllStore() {
         return storeRepository.findAll()
                 .stream()
                 .map(StoreInfoForm::new)
                 .toList();
     }
+
     @Transactional(readOnly = true)
     public StoreInfoForm getStore(Long storeId) {
         Store store = findBy(storeId);
@@ -114,7 +117,7 @@ public class StoreService {
 
         Dibs dibs = new Dibs(store, user);
 
-        if(dibsRepository.existsByUserAndStore(user, store)){
+        if (dibsRepository.existsByUserAndStore(user, store)) {
             dibsRepository.deleteByUserAndStore(user, store);
             return "찜이 해제되었습니다";
         }

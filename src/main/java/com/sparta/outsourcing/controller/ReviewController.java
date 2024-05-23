@@ -40,14 +40,14 @@ public class ReviewController {
 
     @DeleteMapping("/{review_id}")
     public ResponseEntity<ReviewResponseDto> deleteReview(@PathVariable Long storeId,
-                                          @PathVariable Long reviewId) {
+                                                          @PathVariable Long reviewId) {
         reviewService.deleteReview(storeId, reviewId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{review_id}/like")
     public ResponseEntity<ReviewResponseDto> likeReview(@PathVariable Long storeId,
-                                        @PathVariable Long reviewId) {
+                                                        @PathVariable Long reviewId) {
         reviewService.likeReview(storeId, reviewId);
         return ResponseEntity.ok().build();
     }

@@ -14,7 +14,7 @@ public class UserInfoDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public static UserInfoDto of(User user){
+    public static UserInfoDto of(User user) {
         return new UserInfoDto(
                 user.getEmail(),
                 user.getIntroduce(),

@@ -70,7 +70,7 @@ public class StoreController {
     public ResponseEntity<?> dibs(
             HttpSession session,
             @PathVariable Long storeId
-    ){
+    ) {
         String email = (String) session.getAttribute(SessionConst.SESSION_USER.name());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(service.dibs(email, storeId));

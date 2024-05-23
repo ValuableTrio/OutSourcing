@@ -11,5 +11,6 @@ import java.net.Socket;
 public interface DibsRepository extends JpaRepository<Dibs, Long> {
 
     boolean existsByUserAndStore(User user, Store store);
+
     void deleteByUserAndStore(User user, Store store);
 }
